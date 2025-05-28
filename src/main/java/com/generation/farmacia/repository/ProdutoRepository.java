@@ -1,6 +1,7 @@
 package com.generation.farmacia.repository;
 
 
+import java.math.BigDecimal;
 import java.util.List;
 
 
@@ -12,5 +13,7 @@ public interface ProdutoRepository extends JpaRepository<Produto, Long>{
 	
 	List<Produto> findAllByTituloContainingIgnoreCase(String titulo);
 	
+	List<Produto> findByPrecoLessThan(BigDecimal preco);
 	
+	List<Produto> findByPrecoGreaterThan(BigDecimal preco);
 }

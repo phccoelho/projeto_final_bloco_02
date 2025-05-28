@@ -1,6 +1,7 @@
 package com.generation.farmacia.controller;
 
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -55,20 +56,16 @@ public class ProdutoController{
 	}
 	
 	//Select pelo Maior Preço
-	/*@GetMapping("/maior_preco/{preco}")
-	public ResponseEntity<Produto> getProdutoComMaiorPreco() {
-	    return produtoRepository.findTopByOrderByPrecoDesc()
-	    		.map(resposta -> ResponseEntity.ok(resposta))
-	            .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
-	}*/
+	@GetMapping("/maiorpreco/{preco}")
+	public ResponseEntity<List<Produto>> getByPrecoMaiorQue(@PathVariable BigDecimal preco) {
+	    return ResponseEntity.ok(produtoRepository.findByPrecoGreaterThan(preco));
+	}
 	
 	//Select pelo Menor Preço
-	/*@GetMapping("/menor_preco/{preco}")
-	public ResponseEntity<Produto> getProdutoComMenorPreco() {
-	    return produtoRepository.findTopByOrderByPrecoAsc()
-	    		.map(resposta -> ResponseEntity.ok(resposta))
-	            .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
-	}*/
+	@GetMapping("/menorpreco/{preco}")
+	public ResponseEntity<List<Produto>> getByPrecoMenorQue(@PathVariable BigDecimal preco) {
+		return ResponseEntity.ok(produtoRepository.findByPrecoLessThan(preco));
+	}
 	
 	@PostMapping
 	public ResponseEntity<Produto> post(@Valid @RequestBody Produto produto){
